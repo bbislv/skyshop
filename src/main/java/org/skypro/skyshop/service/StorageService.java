@@ -14,13 +14,16 @@ public class StorageService {
     private Map<UUID, Article> articles = new HashMap<>();
 
     public StorageService() {
-        this.products = new HashMap<>();
-        this.products.put(UUID.randomUUID(), new SimpleProduct("Книга", 500));
-        this.products.put(UUID.randomUUID(), new DiscountedProduct("Футболка", 2000, 25));
 
-        this.articles = new HashMap<>();
-        this.articles.put(UUID.randomUUID(), new Article("Книга и ее поиск", "Выбирайте книги по жанру и автору."));
-        this.articles.put(UUID.randomUUID(), new Article("Уход за одеждой", "Стирайте футболки при 30 градусах."));
+        SimpleProduct pr1 = new SimpleProduct("Книга", 500);
+        DiscountedProduct pr2 = new DiscountedProduct("Футболка", 2000, 25);
+        this.products.put(pr1.getId(), pr1);
+        this.products.put(pr2.getId(), pr2);
+
+        Article ar1 = new Article("Книга и ее поиск", "Выбирайте книги по жанру и автору.");
+        Article ar2 = new Article("Уход за одеждой", "Стирайте футболки при 30 градусах.");
+        this.articles.put(ar1.getId(), ar1);
+        this.articles.put(ar2.getId(), ar2);
     }
 
     public Collection<Product> getAllProducts() {
@@ -52,5 +55,9 @@ public class StorageService {
         all.addAll(products.values());
         all.addAll(articles.values());
         return all;
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
     }
 }
